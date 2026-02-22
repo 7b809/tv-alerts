@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pymongo import MongoClient
-from datetime import datetime
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 
 # ==========================
@@ -28,7 +28,7 @@ templates = Jinja2Templates(directory="templates")
 @app.post("/api/webhook")
 async def wavetrend_webhook(request: Request):
     data = await request.json()
-    data["received_at"] = datetime.utcnow()
+    data["received_at"] = datetime.now(timezone.utc)  # ✅ FIXED
     wt_collection.insert_one(data)
     return JSONResponse({"status": "wavetrend_saved"})
 
@@ -38,7 +38,7 @@ async def wavetrend_webhook(request: Request):
 @app.post("/api/structure")
 async def structure_webhook(request: Request):
     data = await request.json()
-    data["received_at"] = datetime.utcnow()
+    data["received_at"] = datetime.now(timezone.utc)  # ✅ FIXED
     structure_collection.insert_one(data)
     return JSONResponse({"status": "structure_saved"})
 

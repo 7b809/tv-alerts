@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TradingView Alerts Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark text-light">
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">📊 TradingView Alerts</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-dark align-middle">
+            <thead class="table-primary text-dark">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Direction</th>
+                    <th>Type</th>
+                    <th>Count</th>
+                    <th>Strike</th>
+                    <th>Main Index</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in alerts %}
+                <tr class="{% if alert.direction == 'Long' %}table-success{% else %}table-danger{% endif %}">
+                    <td>{{ alert.symbol }}</td>
+                    <td>{{ alert.direction }}</td>
+                    <td>{{ alert.type }}</td>
+                    <td>{{ alert.type_count }}</td>
+                    <td>{{ alert.strike }}</td>
+                    <td>{{ alert.main_index }}</td>
+                    <td>{{ alert.date }}</td>
+                    <td>{{ alert.time }}</td>
+                    <td>{{ alert.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
